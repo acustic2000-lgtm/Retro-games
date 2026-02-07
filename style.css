@@ -120,6 +120,40 @@ a {
   background: var(--text);
 }
 
+
+.music-toggle {
+  position: fixed;
+  top: max(0.75rem, env(safe-area-inset-top));
+  right: max(0.75rem, env(safe-area-inset-right));
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 47, 102, 0.78);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.22), transparent 50%),
+    linear-gradient(160deg, rgba(36, 24, 76, 0.95), rgba(9, 20, 46, 0.96));
+  color: #ffe8f2;
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow:
+    inset 0 0 9px rgba(255, 47, 102, 0.28),
+    0 0 12px rgba(255, 47, 102, 0.42),
+    0 0 18px rgba(57, 164, 255, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.music-toggle[aria-pressed='true'] {
+  border-color: rgba(57, 164, 255, 0.88);
+  box-shadow:
+    inset 0 0 9px rgba(57, 164, 255, 0.24),
+    0 0 12px rgba(57, 164, 255, 0.46),
+    0 0 20px rgba(164, 93, 255, 0.26);
+}
+
 .main-nav {
   position: absolute;
   top: calc(100% + 2px);
@@ -445,13 +479,15 @@ input:focus-visible {
 
 .game-card:hover,
 .thumb:hover,
-.btn-primary:hover {
+.btn-primary:hover,
+.music-toggle:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 14px rgba(255, 47, 102, 0.33), 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .filter-btn:hover,
-.menu-toggle:hover {
+.menu-toggle:hover,
+.music-toggle:hover {
   box-shadow: 0 0 10px rgba(57, 164, 255, 0.35);
   border-color: rgba(57, 164, 255, 0.72);
 }

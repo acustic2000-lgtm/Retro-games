@@ -85,3 +85,83 @@ document.addEventListener('keydown', (event) => {
     closeModal();
   }
 });
+
+
+const backgroundMusic = document.querySelector('#bg-music');
+const musicToggle = document.querySelector('#music-toggle');
+const DEFAULT_MUSIC_VOLUME = 0.25;
+let musicUnlocked = false;
+
+if (backgroundMusic) {
+  backgroundMusic.volume = DEFAULT_MUSIC_VOLUME;
+  backgroundMusic.muted = true;
+}
+
+const updateMusicToggle = () => {
+  if (!musicToggle || !backgroundMusic) {
+    return;
+  }
+
+  const isPlaying = !backgroundMusic.muted && !backgroundMusic.paused;
+  musicToggle.textContent = isPlaying ? '🔊' : '🔇';
+  musicToggle.setAttribute('aria-pressed', String(isPlaying));
+  musicToggle.setAttribute(
+    'aria-label',
+    isPlaying ? 'Wycisz muzykę w tle' : 'Włącz muzykę w tle'
+  );
+};
+
+const startBackgroundMusic = async () => {
+  if (!backgroundMusic || musicUnlocked) {
+    return;
+  }
+
+  musicUnlocked = true;
+  backgroundMusic.muted = false;
+
+  try {
+    await backgroundMusic.play();
+  } catch {
+    musicUnlocked = false;
+    backgroundMusic.muted = true;
+  }
+
+  updateMusicToggle();
+};
+
+document.addEventListener('pointerdown', startBackgroundMusic, { once: true, passive: true });
+document.addEventListener('touchstart', startBackgroundMusic, { once: true, passive: true });
+document.addEventListener('keydown', startBackgroundMusic, { once: true });
+
+musicToggle?.addEventListener('click', async () => {
+  if (!backgroundMusic) {
+    return;
+  }
+
+  if (!musicUnlocked) {
+    await startBackgroundMusic();
+    return;
+  }
+
+  if (backgroundMusic.muted) {
+    backgroundMusic.muted = false;
+
+    if (backgroundMusic.paused) {
+      try {
+        await backgroundMusic.play();
+      } catch {
+        backgroundMusic.muted = true;
+      }
+    }
+  } else {
+    backgroundMusic.muted = true;
+  }
+
+  updateMusicToggle();
+});
+
+backgroundMusic?.addEventListener('ended', () => {
+  backgroundMusic.currentTime = 0;
+});
+
+updateMusicToggle();
