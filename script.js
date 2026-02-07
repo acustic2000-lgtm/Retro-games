@@ -89,12 +89,14 @@ document.addEventListener('keydown', (event) => {
 
 const backgroundMusic = document.querySelector('#bg-music');
 const musicToggle = document.querySelector('#music-toggle');
-const DEFAULT_MUSIC_VOLUME = 0.25;
+const DEFAULT_MUSIC_VOLUME = 0.3;
 let musicUnlocked = false;
+let audioSourcesLogged = false;
 
 if (backgroundMusic) {
   backgroundMusic.volume = DEFAULT_MUSIC_VOLUME;
   backgroundMusic.muted = true;
+  console.info('[BGM] Audio element initialized with volume:', backgroundMusic.volume);
 }
 
 const updateMusicToggle = () => {
@@ -103,7 +105,10 @@ const updateMusicToggle = () => {
   }
 
   const isPlaying = !backgroundMusic.muted && !backgroundMusic.paused;
-  musicToggle.textContent = isPlaying ? '🔊' : '🔇';
+  const musicIcon = musicToggle.querySelector('.music-icon');
+  if (musicIcon) {
+    musicIcon.textContent = isPlaying ? '🔊' : '🔇';
+  }
   musicToggle.setAttribute('aria-pressed', String(isPlaying));
   musicToggle.setAttribute(
     'aria-label',
@@ -119,11 +124,22 @@ const startBackgroundMusic = async () => {
   musicUnlocked = true;
   backgroundMusic.muted = false;
 
+  if (!audioSourcesLogged) {
+    audioSourcesLogged = true;
+    const sourceList = Array.from(backgroundMusic.querySelectorAll('source'));
+    sourceList.forEach((source, index) => {
+      const sourcePath = source.getAttribute('src') || '(missing src)';
+      console.info(`[BGM] Source ${index + 1}:`, sourcePath);
+    });
+  }
+
   try {
     await backgroundMusic.play();
+    console.info('[BGM] Playback started after user interaction.');
   } catch {
     musicUnlocked = false;
     backgroundMusic.muted = true;
+    console.error('[BGM] Playback blocked. Waiting for another user interaction.');
   }
 
   updateMusicToggle();
@@ -149,12 +165,15 @@ musicToggle?.addEventListener('click', async () => {
     if (backgroundMusic.paused) {
       try {
         await backgroundMusic.play();
+        console.info('[BGM] Playback resumed from toggle.');
       } catch {
         backgroundMusic.muted = true;
+        console.error('[BGM] Unable to resume playback from toggle.');
       }
     }
   } else {
     backgroundMusic.muted = true;
+    console.info('[BGM] Playback muted from toggle.');
   }
 
   updateMusicToggle();
@@ -162,6 +181,31 @@ musicToggle?.addEventListener('click', async () => {
 
 backgroundMusic?.addEventListener('ended', () => {
   backgroundMusic.currentTime = 0;
+});
+
+backgroundMusic?.addEventListener('loadeddata', () => {
+  const activeSource = backgroundMusic.currentSrc || '(unknown source)';
+  console.info('[BGM] Audio loaded:', activeSource);
+});
+
+backgroundMusic?.addEventListener('error', () => {
+  const errorCode = backgroundMusic.error?.code;
+  const activeSource = backgroundMusic.currentSrc || '(source not resolved)';
+  console.error('[BGM] Failed to load audio.', {
+    errorCode,
+    activeSource,
+    expectedSources: ['assets/audio/synth.mp3', 'assets/audio/synth.ogg'],
+  });
+});
+
+backgroundMusic?.addEventListener('play', () => {
+  console.info('[BGM] Play event fired.');
+});
+
+backgroundMusic?.addEventListener('pause', () => {
+  if (!backgroundMusic.muted) {
+    console.warn('[BGM] Audio paused while not muted.');
+  }
 });
 
 updateMusicToggle();

@@ -9,25 +9,11 @@
   <body>
     <div class="crt-overlay" aria-hidden="true"></div>
 
-    <audio
-      id="bg-music"
-      src="assets/audio/synth.mp3"
-      loop
-      preload="metadata"
-      playsinline
-      webkit-playsinline="true"
-      aria-hidden="true"
-    ></audio>
-
-    <button
-      id="music-toggle"
-      class="music-toggle"
-      type="button"
-      aria-label="Włącz muzykę"
-      aria-pressed="false"
-    >
-      🔇
-    </button>
+    <audio id="bg-music" loop preload="none" playsinline aria-hidden="true">
+      <source src="assets/audio/synth.mp3" type="audio/mpeg" />
+      <source src="assets/audio/synth.ogg" type="audio/ogg" />
+      Twoja przeglądarka nie obsługuje odtwarzania audio.
+    </audio>
 
     <header class="site-header">
       <a class="logo" href="#top" aria-label="Retro Games - strona główna">
@@ -41,6 +27,17 @@
         aria-label="Otwórz menu"
       >
         <span></span><span></span><span></span>
+      </button>
+
+      <button
+        id="music-toggle"
+        class="music-toggle"
+        type="button"
+        aria-label="Włącz muzykę"
+        aria-pressed="false"
+      >
+        <span class="music-icon" aria-hidden="true">🔇</span>
+        <span class="music-label">MUSIC</span>
       </button>
 
       <nav id="main-menu" class="main-nav" aria-label="Główne menu">
