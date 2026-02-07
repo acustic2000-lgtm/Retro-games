@@ -82,6 +82,10 @@ a {
   gap: 0.75rem;
 }
 
+.site-header .music-toggle {
+  margin-left: auto;
+}
+
 .logo {
   text-decoration: none;
   display: inline-flex;
@@ -122,28 +126,40 @@ a {
 
 
 .music-toggle {
-  position: fixed;
-  top: max(0.75rem, env(safe-area-inset-top));
-  right: max(0.75rem, env(safe-area-inset-right));
-  z-index: 40;
-  width: 44px;
-  height: 44px;
+  position: relative;
+  z-index: 16;
+  min-width: 110px;
+  height: 42px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 47, 102, 0.78);
+  border: 1px solid rgba(255, 47, 102, 0.76);
   background:
-    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.22), transparent 50%),
-    linear-gradient(160deg, rgba(36, 24, 76, 0.95), rgba(9, 20, 46, 0.96));
+    radial-gradient(circle at 15% 18%, rgba(255, 255, 255, 0.2), transparent 45%),
+    linear-gradient(160deg, rgba(36, 24, 76, 0.96), rgba(9, 20, 46, 0.97));
   color: #ffe8f2;
-  display: grid;
-  place-items: center;
-  font-size: 1.05rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
   cursor: pointer;
   box-shadow:
     inset 0 0 9px rgba(255, 47, 102, 0.28),
     0 0 12px rgba(255, 47, 102, 0.42),
-    0 0 18px rgba(57, 164, 255, 0.24);
+    0 0 18px rgba(57, 164, 255, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.music-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.music-label {
+  font-family: "Courier New", ui-monospace, monospace;
 }
 
 .music-toggle[aria-pressed='true'] {
@@ -152,6 +168,10 @@ a {
     inset 0 0 9px rgba(57, 164, 255, 0.24),
     0 0 12px rgba(57, 164, 255, 0.46),
     0 0 20px rgba(164, 93, 255, 0.26);
+}
+
+.music-toggle:focus-visible {
+  transform: translateY(-1px);
 }
 
 .main-nav {
@@ -516,6 +536,18 @@ input:focus-visible {
   46%,
   100% {
     opacity: 0;
+  }
+}
+
+@media (max-width: 759px) {
+  .music-toggle {
+    min-width: 44px;
+    width: 44px;
+    padding: 0;
+  }
+
+  .music-label {
+    display: none;
   }
 }
 
