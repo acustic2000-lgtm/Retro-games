@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retro Games</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="logo" href="#top" aria-label="Retro Games - strona główna">
+        <span class="logo-icon" aria-hidden="true">▣</span>
+        <span class="logo-text">RETRO GAMES</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="main-menu"
+        aria-label="Otwórz menu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav id="main-menu" class="main-nav" aria-label="Główne menu">
+        <a href="#start">Start</a>
+        <a href="#gry">Gry</a>
+        <a href="#galeria">Galerie</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="start">
+        <p class="eyebrow">Witaj w salonie automatów</p>
+        <h1>Powrót do złotej ery gier!</h1>
+        <p>
+          Odkryj klasyki arcade, platformówki i kultowe RPG w jednym miejscu.
+        </p>
+        <a class="btn-primary" href="#gry">Przeglądaj gry<span class="cursor">_</span></a>
+      </section>
+
+      <section class="games" id="gry">
+        <div class="section-head">
+          <h2>Gry</h2>
+          <p>Filtruj po gatunku i wyszukuj ulubione tytuły.</p>
+        </div>
+
+        <div class="controls" role="group" aria-label="Filtry gier">
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">Wszystkie</button>
+            <button class="filter-btn" data-filter="Arcade">Arcade</button>
+            <button class="filter-btn" data-filter="RPG">RPG</button>
+            <button class="filter-btn" data-filter="Platformer">Platformer</button>
+          </div>
+          <label class="search-wrap" for="search-input">
+            <span>Szukaj tytułu</span>
+            <input id="search-input" type="search" placeholder="np. Pixel Quest" />
+          </label>
+        </div>
+
+        <div class="games-grid" id="games-grid">
+          <article class="game-card" data-tag="Arcade" data-title="Neon Blaster">
+            <div class="cover cover-1" aria-hidden="true"></div>
+            <h3>Neon Blaster</h3>
+            <p>1987 · <span class="tag">Arcade</span></p>
+          </article>
+          <article class="game-card" data-tag="RPG" data-title="Pixel Quest">
+            <div class="cover cover-2" aria-hidden="true"></div>
+            <h3>Pixel Quest</h3>
+            <p>1992 · <span class="tag">RPG</span></p>
+          </article>
+          <article class="game-card" data-tag="Platformer" data-title="Sky Jumper">
+            <div class="cover cover-3" aria-hidden="true"></div>
+            <h3>Sky Jumper</h3>
+            <p>1989 · <span class="tag">Platformer</span></p>
+          </article>
+          <article class="game-card" data-tag="Arcade" data-title="Turbo Tunnel">
+            <div class="cover cover-4" aria-hidden="true"></div>
+            <h3>Turbo Tunnel</h3>
+            <p>1990 · <span class="tag">Arcade</span></p>
+          </article>
+          <article class="game-card" data-tag="RPG" data-title="Dragon Byte">
+            <div class="cover cover-5" aria-hidden="true"></div>
+            <h3>Dragon Byte</h3>
+            <p>1994 · <span class="tag">RPG</span></p>
+          </article>
+          <article class="game-card" data-tag="Platformer" data-title="Moon Hopper">
+            <div class="cover cover-6" aria-hidden="true"></div>
+            <h3>Moon Hopper</h3>
+            <p>1988 · <span class="tag">Platformer</span></p>
+          </article>
+          <article class="game-card" data-tag="Arcade" data-title="Astro Racer">
+            <div class="cover cover-7" aria-hidden="true"></div>
+            <h3>Astro Racer</h3>
+            <p>1991 · <span class="tag">Arcade</span></p>
+          </article>
+          <article class="game-card" data-tag="RPG" data-title="Rune Keepers">
+            <div class="cover cover-8" aria-hidden="true"></div>
+            <h3>Rune Keepers</h3>
+            <p>1993 · <span class="tag">RPG</span></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="gallery" id="galeria">
+        <div class="section-head">
+          <h2>Galeria</h2>
+          <p>Kliknij miniaturę, aby powiększyć.</p>
+        </div>
+        <div class="gallery-grid">
+          <button class="thumb thumb-1" data-full="Retro city skyline" aria-label="Otwórz obraz Retro city skyline"></button>
+          <button class="thumb thumb-2" data-full="Arcade room" aria-label="Otwórz obraz Arcade room"></button>
+          <button class="thumb thumb-3" data-full="Pixel hero" aria-label="Otwórz obraz Pixel hero"></button>
+          <button class="thumb thumb-4" data-full="Boss arena" aria-label="Otwórz obraz Boss arena"></button>
+          <button class="thumb thumb-5" data-full="8-bit forest" aria-label="Otwórz obraz 8-bit forest"></button>
+          <button class="thumb thumb-6" data-full="Retro sunset" aria-label="Otwórz obraz Retro sunset"></button>
+        </div>
+      </section>
+
+      <section class="contact" id="kontakt">
+        <h2>Kontakt</h2>
+        <p>Napisz do nas: <a href="mailto:kontakt@retrogames.pl">kontakt@retrogames.pl</a></p>
+      </section>
+    </main>
+
+    <div class="modal" id="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-panel">
+        <button class="modal-close" aria-label="Zamknij podgląd">✕</button>
+        <h3 id="modal-title">Podgląd</h3>
+        <div class="modal-image" id="modal-image" role="img" aria-label="Podgląd miniatury"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
